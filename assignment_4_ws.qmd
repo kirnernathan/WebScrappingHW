@@ -71,9 +71,41 @@ To complete this, you will need to utilize these key functions from the `{ipumsr
 #| label: extract-data
 
 # 1. Define
+```
+
+```{r}
+data_set <-define_extract_agg(collection="nhgis",
+  datasets =ds_spec("1990_STF1", data_tables="NP1",geog_levels="state")
+)
+```
+
+``` r
+
 # 2. Submit
+```
+
+```{r}
+submit_extract(data_set)->time
+```
+
+``` r
+
 # 3. Wait & Download
+```
+
+```{r}
+wait_for_extract(time)-> ready
+download_extract(ready,download_dir = "Data_413/HW4/Data",overwrite = TRUE )->zip_path
+```
+
+``` r
+
 # 4. Read
+```
+
+```{r}
+data_read<-read_nhgis(zip_path)
+
 ```
 
 ### Part 3: Data Cleaning
