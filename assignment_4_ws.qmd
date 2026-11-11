@@ -197,11 +197,25 @@ That said, you can make it slightly more precise and a bit more “data‑scienc
 
     - Ensure you select the correct table (the page contains multiple tables).
 
+    ```{r}
+    library(rvest)
+    states_by_pop<-read_html("https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population#State_and_territory_rankings")
+    rankings_raw <- states_by_pop |>
+      html_element("table.wikitable") |>
+      html_table(convert = FALSE)
+
+    head(rankings_raw)
+    ```
+
 2.  Clean and standardize the data
 
     - Fix column names so they are syntactically valid and descriptive (e.g., using `janitor::clean_names()`).
 
     - Ensure the first row is treated as column headers, not data.
+
+    ```{r}
+
+    ```
 
 3.  Correct column classes
 
