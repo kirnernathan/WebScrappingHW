@@ -1,10 +1,16 @@
 ---
-title: "Assignment 4 Web Scraping"
-format:
-  html:
-    self-contained: true
-editor: visual
 ---
+title: "Assignment 4 Web Scraping"
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(rvest)
+...
+```
+
+------------------------------------------------------------------------
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo       = TRUE, 
@@ -224,17 +230,47 @@ That said, you can make it slightly more precise and a bit more “data‑scienc
 
 3.  Correct column classes
 
-    - Convert numeric columns to numeric (they often import as character because of commas or symbols).
+    - Convert numeric columns to numeric (they often import as character because of commas or symbols)
+
+    ```{r}
+    rankings_2 <- rankings |>
+      mutate(across(c(july_1_2025_est, april_1_2020, seats, percent,
+                      pop_perseat_2020_a, pop_perelec_vote_2020_c,
+                      percent_us_2020, percent_ec_2020),
+                    ~ parse_number(str_replace_all(.x, "\u2212", "-"))))
+
+    head(rankings_2)
+    ```
 
     - Convert rank columns to integers.
 
+    ```{r}
+    rankings_3 <- rankings_2 |>
+      mutate(x=as.integer(x))
+    head(rankings_3)
+    ```
+
     - Convert state/territory names to character.
+
+    ```{r}
+    rankings_4<-rankings_3 |>
+      mutate(state_or_territory=as.character(state_or_territory))
+    head(rankings_4)
+    ```
 
 4.  Handle missing values
 
     - Replace any `"—"` or `"__"` or similar placeholders with `NA`.
 
-5.  (Optional but useful)
+```{r}
+rankings_clean <- rankings |>
+  mutate(across(where(is.character), ~ na_if(.x, "—")))
+head(rankings_clean)
+```
+
+1.  
+
+2.  (Optional but useful)
 
     - Remove commas from numbers.
 
