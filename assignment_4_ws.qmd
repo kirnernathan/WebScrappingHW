@@ -163,9 +163,19 @@ head(pop_data_2)
 
 population density = total population/ land area
 
+```{r}
+pop_data_3<-mutate(pop_data_2, land_area = as.numeric(land_area),population_density=total_pop / land_area)
+head(pop_data_3)
+```
+
 ### Part 5: Find Water Share
 
 water share = water area /(land area + water area)
+
+```{r}
+pop_data_4<-mutate(pop_data_3, water_area = as.numeric(water_area),water_share=water_area/(land_area)+water_area)
+head(pop_data_4)
+```
 
 #### Tips for Students
 
