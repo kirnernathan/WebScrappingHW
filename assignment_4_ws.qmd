@@ -214,7 +214,12 @@ That said, you can make it slightly more precise and a bit more “data‑scienc
     - Ensure the first row is treated as column headers, not data.
 
     ```{r}
+    install.packages("janitor")
+    rankings <- rankings_raw |>
+      janitor::row_to_names(row_number = 1) |>
+      janitor::clean_names()
 
+    head(rankings)
     ```
 
 3.  Correct column classes
