@@ -104,7 +104,7 @@ download_extract(ready,download_dir = "Data_413/HW4/Data",overwrite = TRUE )->zi
 ```
 
 ```{r}
-data_read<-read_nhgis(zip_path)
+pop_data<-read_nhgis(zip_path)
 
 ```
 
@@ -133,6 +133,31 @@ Rename and the select variables
 - water_area = AREAWAT,
 
 - total_pop = ET1001
+
+```{r}
+library(tidyverse)
+pop_data_2<-select(pop_data, gisjoin = GISJOIN,
+                   
+                   year = YEAR,
+                   
+                   state_abbr = STUSAB,
+                   
+                   division = DIVISIONA,
+                   
+                   region = REGIONA,
+                   
+                   state_name = STATE,
+                   
+                   state_code = STATEA,
+                   
+                   land_area = AREALAND,
+                   
+                   water_area = AREAWAT,
+                     total_pop = ET1001
+                   
+)
+head(pop_data_2)
+```
 
 ### Part 4: Find the population density
 
